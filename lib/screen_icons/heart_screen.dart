@@ -35,30 +35,33 @@ class _HeartScreenState extends State<HeartScreen> {
       appBar: AppBar(
         title: const Text(
           'My Love',
-          style: TextStyle(color: Colors.black54),
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: const Color(0xFFF7879A),
+        backgroundColor: Color(0xFFBE5985),
       ),
-      body: Stack(
-        children: [
-          Center(
-            child: Container(
-              padding: EdgeInsets.all(16.0),
-              width: 350,
-              height: 550,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(231, 188, 195, 1),
-                borderRadius: BorderRadius.circular(10.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 5.0,
-                    spreadRadius: 2.0,
-                  ),
-                ],
-              ),
-              child: SingleChildScrollView(
-                child: Text('''Hi, Love!
+      body: Padding(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                padding: EdgeInsets.all(16.0),
+                width: 350,
+                height: 665,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(235, 203, 214, 1),
+                  borderRadius: BorderRadius.circular(10.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 5.0,
+                      spreadRadius: 2.0,
+                    ),
+                  ],
+                ),
+                child: SingleChildScrollView(
+                  child: Text('''Hi, Love!
 Happy Valentines Day!
                   
         Bilang pagalala kung gaano kita kamahal, ginawa ko 'tong gift na 'to para sa'yo. Sobrang proud ako sa lahat ng naachieve natin nang magkasama. Sobrang proud ako sa'yo at sa lahat ng effort mo to be the best you can be at masaya akong nakikita na masaya ka sa path na nilalakaran mo ngayon.
@@ -76,13 +79,15 @@ Happy Valentines Day!
     -Ken
          
          ''',
-                    style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-                    textAlign: TextAlign.left),
+                      style:
+                          TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                      textAlign: TextAlign.left),
+                ),
               ),
             ),
-          ),
-          ..._hearts,
-        ],
+            ..._hearts,
+          ],
+        ),
       ),
       floatingActionButton: Container(
         width: 70.0,
