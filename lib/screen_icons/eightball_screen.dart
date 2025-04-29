@@ -14,6 +14,7 @@ class _eightBallscreenState extends State<eightBallscreen>
   final Random random = Random();
   late AnimationController _controller;
   late Animation<Offset> _animation;
+  bool hasAnswered = false;
 
   final List<String> answers = [
     "Yes",
@@ -34,6 +35,8 @@ class _eightBallscreenState extends State<eightBallscreen>
     "Ask Ken"
   ];
 
+  final List<int> lastAnswers = [];
+
   @override
   void initState() {
     super.initState();
@@ -45,27 +48,41 @@ class _eightBallscreenState extends State<eightBallscreen>
       TweenSequenceItem(
           tween: Tween(begin: Offset(0, 0), end: Offset(15, -15)), weight: 1),
       TweenSequenceItem(
-          tween: Tween(begin: Offset(20, -20), end: Offset(-15, 15)),
-          weight: 1),
+          tween: Tween(begin: Offset(50, -50), end: Offset(-25, 25)),
+          weight: 5),
       TweenSequenceItem(
-          tween: Tween(begin: Offset(-20, 20), end: Offset(10, -10)),
-          weight: 1),
+          tween: Tween(begin: Offset(-50, 50), end: Offset(20, -20)),
+          weight: 5),
       TweenSequenceItem(
-          tween: Tween(begin: Offset(15, -15), end: Offset(-10, 10)),
-          weight: 1),
+          tween: Tween(begin: Offset(25, -25), end: Offset(-20, 20)),
+          weight: 5),
       TweenSequenceItem(
-          tween: Tween(begin: Offset(-15, 15), end: Offset(5, -5)), weight: 1),
+          tween: Tween(begin: Offset(-25, 25), end: Offset(25, -25)),
+          weight: 5),
       TweenSequenceItem(
-          tween: Tween(begin: Offset(10, -10), end: Offset(-5, 5)), weight: 1),
+          tween: Tween(begin: Offset(20, -20), end: Offset(-25, 25)),
+          weight: 5),
       TweenSequenceItem(
-          tween: Tween(begin: Offset(-10, 10), end: Offset(0, 0)), weight: 1),
+          tween: Tween(begin: Offset(-20, 20), end: Offset(0, 0)), weight: 5),
     ]).animate(_controller);
   }
 
   void shakeBall() {
     _controller.forward(from: 0).whenComplete(() {
+      int newBallNumber;
+
+      do {
+        newBallNumber = random.nextInt(answers.length);
+      } while (lastAnswers.contains(newBallNumber));
+
+      if (lastAnswers.length >= 4) {
+        lastAnswers.removeAt(0);
+      }
+      lastAnswers.add(newBallNumber);
+
       setState(() {
-        ballNumber = random.nextInt(16);
+        ballNumber = newBallNumber;
+        hasAnswered = true;
       });
     });
   }
@@ -82,14 +99,14 @@ class _eightBallscreenState extends State<eightBallscreen>
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          'Game',
+          'Magic EightBall',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 24,
+            fontSize: 22,
             fontFamily: 'Roboto',
           ),
         ),
-        backgroundColor: Color(0xFFBE5985),
+        backgroundColor: Color(0xFFE18AAA),
       ),
       body: Column(
         children: [
@@ -151,9 +168,9 @@ class _eightBallscreenState extends State<eightBallscreen>
                       ),
                       child: Center(
                         child: Text(
-                          answers[ballNumber],
+                          hasAnswered ? answers[ballNumber] : "8",
                           style: TextStyle(
-                            fontSize: 25,
+                            fontSize: hasAnswered ? 25 : 80,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,

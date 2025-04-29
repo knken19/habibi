@@ -53,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Us', style: TextStyle(color: Colors.white, fontSize: 24)),
-        backgroundColor: Color(0xFFBE5985),
+        backgroundColor: Color(0xFFE18AAA),
       ),
       body: Stack(
         children: [
@@ -150,8 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     SizedBox(width: 10),
-                    Icon(Icons.favorite,
-                        color: Color.fromARGB(255, 168, 49, 89)),
+                    Icon(Icons.favorite, color: const Color(0xFFE18AAA)),
                     SizedBox(width: 10),
                     Container(
                       width: 100,

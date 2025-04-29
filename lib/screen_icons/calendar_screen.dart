@@ -107,160 +107,156 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Calendar',
-          style: TextStyle(color: Colors.white),
+        backgroundColor: Color(0xFFE18AAA),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        backgroundColor: const Color(0xFFBE5985),
+        title: const Text('Calendar', style: TextStyle(color: Colors.white)),
       ),
-      body: content(),
+      body: Column(
+        children: [
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: SizedBox(
+              height: 400,
+              child: content(),
+            ),
+          ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFE18AAA),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  elevation: 4,
+                ),
+                onPressed: () {
+                  setState(() {
+                    isSelecting = !isSelecting;
+                    if (!isSelecting) {
+                      _saveSelectedDates();
+                    }
+                  });
+                },
+                child: Text(
+                  isSelecting ? 'Done Selecting' : 'Select Period Dates',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget content() {
-    return Column(
-      children: [
-        TableCalendar(
-          calendarFormat: _calendarFormat,
-          onFormatChanged: (format) {
-            setState(() {
-              _calendarFormat = format;
-            });
-          },
-          headerStyle: const HeaderStyle(
-              formatButtonVisible: false, titleCentered: true),
-          rowHeight: 60.0,
-          focusedDay: focusedDay,
-          firstDay: DateTime.utc(2000, 1, 1),
-          lastDay: DateTime.utc(2040, 12, 31),
-          selectedDayPredicate: (day) =>
-              selectedDays.any((d) => isSameDay(d, day)),
-          onDaySelected: _onDaySelected,
-          calendarBuilders:
-              CalendarBuilders(defaultBuilder: (context, day, focusedDay) {
-            return Container(
-              margin: const EdgeInsets.all(4.0),
-              alignment: Alignment.center,
-              child: Text(
-                day.day.toString(),
-                style: const TextStyle(color: Colors.black),
-              ),
-            );
-          }, selectedBuilder: (context, day, focusedDay) {
-            return Container(
-              margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.all(8.0),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color.fromARGB(255, 238, 125, 162),
-              ),
-              child: Text(
-                day.day.toString(),
-                style: const TextStyle(color: Colors.white),
-              ),
-            );
-          }, todayBuilder: (context, day, focusedDay) {
-            return Stack(
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(10.0),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          TableCalendar(
+            calendarFormat: _calendarFormat,
+            onFormatChanged: (format) {
+              setState(() {
+                _calendarFormat = format;
+              });
+            },
+            headerStyle: const HeaderStyle(
+                formatButtonVisible: false, titleCentered: true),
+            rowHeight: 60.0,
+            focusedDay: focusedDay,
+            firstDay: DateTime.utc(2000, 1, 1),
+            lastDay: DateTime.utc(2040, 12, 31),
+            selectedDayPredicate: (day) =>
+                selectedDays.any((d) => isSameDay(d, day)),
+            onDaySelected: _onDaySelected,
+            calendarBuilders: CalendarBuilders(
+              defaultBuilder: (context, day, focusedDay) {
+                return Container(
+                  margin: const EdgeInsets.all(4.0),
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.pink,
-                      width: 2.0,
-                    ),
-                  ),
                   child: Text(
                     day.day.toString(),
                     style: const TextStyle(color: Colors.black),
                   ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: Text(
-                      "Today",
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                );
+              },
+              selectedBuilder: (context, day, focusedDay) {
+                return Container(
+                  margin: const EdgeInsets.all(4.0),
+                  alignment: Alignment.center,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromARGB(255, 238, 125, 162),
+                  ),
+                  child: Text(
+                    day.day.toString(),
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                );
+              },
+              todayBuilder: (context, day, focusedDay) {
+                return Container(
+                  margin: const EdgeInsets.all(4.0),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.pink, width: 2.0),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        day.day.toString(),
+                        style: const TextStyle(color: Colors.black),
                       ),
+                      const Text(
+                        "Today",
+                        style: TextStyle(
+                          fontSize: 8,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              markerBuilder: (context, day, events) {
+                if (fertileDays.any((d) => isSameDay(d, day))) {
+                  return Container(
+                    margin: const EdgeInsets.all(4.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.cyan, width: 2.0),
                     ),
-                  ),
-                ),
-              ],
-            );
-          }, markerBuilder: (context, day, events) {
-            if (fertileDays.any((d) => isSameDay(d, day))) {
-              return Container(
-                margin: const EdgeInsets.all(10.0),
-                padding: const EdgeInsets.all(8.0),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.cyan,
-                    width: 2.0,
-                  ),
-                ),
-                child: Text(
-                  day.day.toString(),
-                  style: const TextStyle(color: Colors.black),
-                ),
-              );
-            }
-            return null;
-          }),
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              isSelecting = true;
-            });
-          },
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: const Color.fromARGB(255, 238, 125, 162),
-          ),
-          child: const Text("Select Period Dates"),
-        ),
-        if (isSelecting) ...[
-          ElevatedButton(
-            onPressed: () async {
-              await _saveSelectedDates();
-              setState(() {
-                isSelecting = false;
-              });
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: const Color.fromARGB(255, 238, 125, 162),
+                    child: Text(
+                      day.day.toString(),
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                  );
+                }
+                return null;
+              },
             ),
-            child: const Text("Save Period Dates"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                isSelecting = false;
-                selectedDays.clear();
-                fertileDays.clear();
-                ovulationDay = null;
-              });
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: const Color.fromARGB(255, 238, 125, 162),
-            ),
-            child: const Text("Cancel"),
           ),
         ],
-      ],
+      ),
     );
   }
 }

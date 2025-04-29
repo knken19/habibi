@@ -6,9 +6,17 @@ class GameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Game Screen', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color(0xFFBE5985),
+        title: const Text(
+          'Game',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontFamily: 'Roboto',
+          ),
+        ),
+        backgroundColor: Color(0xFFE18AAA),
       ),
     );
   }

@@ -135,7 +135,7 @@ class _NoteScreenState extends State<NoteScreen> with WidgetsBindingObserver {
                 onChanged: _filterNotes,
               )
             : const Text('My Notes', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color(0xFFBE5985),
+        backgroundColor: const Color(0xFFE18AAA),
         actions: [
           IconButton(
             icon: Icon(isSearching ? Icons.close : Icons.search,

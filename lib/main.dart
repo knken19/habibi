@@ -44,20 +44,38 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _widgetOptions[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, size: 30),
-            label: 'Home',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+          border: Border.all(
+            color: const Color(0xFFE18AAA).withOpacity(0.5),
+            width: 1.5,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people_rounded, size: 25),
-            label: 'Together',
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+          child: Container(
+            height: kBottomNavigationBarHeight + 10,
+            child: BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home, size: 20),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.people_rounded, size: 20),
+                  label: 'Together',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              selectedItemColor: const Color(0xFFE18AAA),
+              backgroundColor: Colors.white,
+              elevation: 1,
+              onTap: _onItemTapped,
+              type: BottomNavigationBarType.fixed,
+            ),
           ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color(0xFFBE5985),
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }

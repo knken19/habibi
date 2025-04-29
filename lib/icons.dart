@@ -16,17 +16,17 @@ class IconButtonsScreen extends StatelessWidget {
         title: const Text('Habibing',
             style: TextStyle(
                 color: Colors.white, fontSize: 24, fontFamily: 'Roboto')),
-        backgroundColor: Color(0xFFBE5985),
+        backgroundColor: Color(0xFFE18AAA),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 40.0, left: 25.0, right: 10.0),
+            padding: const EdgeInsets.only(top: 40.0, left: 20.0, right: 10.0),
             child: Text(
               'For You',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 18,
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Roboto',
@@ -35,7 +35,7 @@ class IconButtonsScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 120,
+            height: 100,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -56,20 +56,20 @@ class IconButtonsScreen extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: 200,
-                child: Divider(
-                  color: Colors.black26,
-                  thickness: 1,
-                ),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              margin: const EdgeInsets.only(top: 5.0),
+              width: 250,
+              child: Divider(
+                color: Colors.black26,
+                thickness: 1,
               ),
             ),
           ),
-          Expanded(child: Center(child: ImageScreen())),
+          Expanded(
+            child: Center(child: ImageScreen()),
+          ),
         ],
       ),
     );
@@ -83,21 +83,21 @@ class IconButtonsScreen extends StatelessWidget {
         MaterialPageRoute(builder: (context) => page),
       ),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 8),
+        margin: EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
-          color: Color(0xffEC7FA9),
-          borderRadius: BorderRadius.circular(15),
+          color: const Color(0xFFE4A0B7),
+          borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
               color: Colors.black26,
               blurRadius: 8,
-              spreadRadius: 1,
-              offset: Offset(4, 4),
+              spreadRadius: 0.5,
+              offset: Offset(2, 2),
             ),
           ],
         ),
         padding: const EdgeInsets.all(15),
-        child: Icon(icon, color: Colors.white, size: 60.0),
+        child: Icon(icon, color: Colors.white, size: 40.0),
       ),
     );
   }
@@ -188,7 +188,7 @@ class _ImageScreenState extends State<ImageScreen> {
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(8),
               child: Image.asset(
                 currentImage,
                 fit: BoxFit.cover,
@@ -201,7 +201,7 @@ class _ImageScreenState extends State<ImageScreen> {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             currentQuote,
-            style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+            style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
             textAlign: TextAlign.center,
           ),
         ),

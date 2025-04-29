@@ -1,0 +1,2 @@
+D:/flutter_projects/habibi_app/android/app/.cxx/RelWithDebInfo/12m4z6e5/x86/CMakeFiles/edit_cache.dir
+D:/flutter_projects/habibi_app/android/app/.cxx/RelWithDebInfo/12m4z6e5/x86/CMakeFiles/rebuild_cache.dir

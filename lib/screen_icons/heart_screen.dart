@@ -37,18 +37,19 @@ class _HeartScreenState extends State<HeartScreen> {
           'My Love',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color(0xFFBE5985),
+        backgroundColor: Color(0xFFE18AAA),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 16.0),
-        child: Stack(
-          children: [
-            Align(
+      body: Stack(
+        children: [
+          // This is our main content with the spacing
+          Container(
+            margin: EdgeInsets.only(top: 20.0), // Space below app bar
+            child: Align(
               alignment: Alignment.topCenter,
               child: Container(
                 padding: EdgeInsets.all(16.0),
-                width: 350,
-                height: 665,
+                width: 300,
+                height: 550,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(235, 203, 214, 1),
                   borderRadius: BorderRadius.circular(10.0),
@@ -80,14 +81,15 @@ Happy Valentines Day!
          
          ''',
                       style:
-                          TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                          TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
                       textAlign: TextAlign.left),
                 ),
               ),
             ),
-            ..._hearts,
-          ],
-        ),
+          ),
+          // Hearts will be drawn on top of everything
+          ..._hearts,
+        ],
       ),
       floatingActionButton: Container(
         width: 70.0,
@@ -97,7 +99,7 @@ Happy Valentines Day!
         ),
         child: FloatingActionButton(
           onPressed: _addHeart,
-          backgroundColor: Colors.red,
+          backgroundColor: const Color(0xFFE18AAA),
           child: const Icon(Icons.favorite, color: Colors.white, size: 50),
         ),
       ),
