@@ -95,6 +95,8 @@ flutter:
     - images/habibi.jpg
     - images/us1.jpg
     - images/us2.jpg
+    - images/bg.png
+    - images/i_front.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

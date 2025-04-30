@@ -41,9 +41,8 @@ class _HeartScreenState extends State<HeartScreen> {
       ),
       body: Stack(
         children: [
-          // This is our main content with the spacing
           Container(
-            margin: EdgeInsets.only(top: 20.0), // Space below app bar
+            margin: EdgeInsets.only(top: 20.0),
             child: Align(
               alignment: Alignment.topCenter,
               child: Container(
@@ -87,7 +86,6 @@ Happy Valentines Day!
               ),
             ),
           ),
-          // Hearts will be drawn on top of everything
           ..._hearts,
         ],
       ),
