@@ -18,57 +18,63 @@ class IconButtonsScreen extends StatelessWidget {
                 color: Colors.white, fontSize: 24, fontFamily: 'Roboto')),
         backgroundColor: Color(0xFFE18AAA),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 40.0, left: 20.0, right: 10.0),
-            child: Text(
-              'For You',
-              style: TextStyle(
-                fontSize: 18,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Roboto',
-                color: Colors.black54,
-              ),
+          Container(
+            decoration: BoxDecoration(
+              color: Color(0xFFE18AAA),
             ),
           ),
-          SizedBox(
-            height: 100,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
+          Column(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(width: 15),
-                  _buildIconBox(
-                      context, Icons.favorite, 'Heart', HeartScreen()),
-                  _buildIconBox(
-                      context, Icons.edit_note, 'Notepad', NoteScreen()),
-                  _buildIconBox(context, Icons.calendar_month, 'Calendar',
-                      CalendarScreen()),
-                  _buildIconBox(
-                      context, Icons.mood, 'eightBall', eightBallscreen()),
-                  _buildIconBox(
-                      context, Icons.gamepad_rounded, 'gamePad', GameScreen()),
-                  SizedBox(width: 15),
+                  SizedBox(
+                    height: 120,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          SizedBox(width: 15),
+                          _buildIconBox(
+                              context, Icons.favorite, 'Heart', HeartScreen()),
+                          _buildIconBox(context, Icons.edit_note, 'Notepad',
+                              NoteScreen()),
+                          _buildIconBox(context, Icons.calendar_month,
+                              'Calendar', CalendarScreen()),
+                          _buildIconBox(context, Icons.mood, 'eightBall',
+                              eightBallscreen()),
+                          _buildIconBox(context, Icons.gamepad_rounded,
+                              'gamePad', GameScreen()),
+                          SizedBox(width: 15),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
                 ],
               ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-              margin: const EdgeInsets.only(top: 5.0),
-              width: 250,
-              child: Divider(
-                color: Colors.black26,
-                thickness: 1,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Center(child: ImageScreen()),
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF5F5F5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 20,
+                          spreadRadius: 5,
+                          offset: Offset(0, -5),
+                        ),
+                      ],
+                    ),
+                    child: ImageScreen(),
+                  ),
+                ),
+              )
+            ],
           ),
         ],
       ),
@@ -79,25 +85,23 @@ class IconButtonsScreen extends StatelessWidget {
       BuildContext context, IconData icon, String name, Widget page) {
     return GestureDetector(
       onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => page),
-      ),
+          context, MaterialPageRoute(builder: (context) => page)),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
-          color: const Color(0xFFE4A0B7),
+          color: const Color.fromARGB(255, 226, 184, 199), //0xFFF5F5F5
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
               color: Colors.black26,
               blurRadius: 8,
               spreadRadius: 0.5,
-              offset: Offset(2, 2),
+              offset: Offset(0, 4),
             ),
           ],
         ),
         padding: const EdgeInsets.all(15),
-        child: Icon(icon, color: Colors.white, size: 40.0),
+        child: Icon(icon, color: Color(0xFFF5F5F5), size: 40.0),
       ),
     );
   }

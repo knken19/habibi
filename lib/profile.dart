@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:ui';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -48,6 +49,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.dispose();
   }
 
+  TextStyle _textStyle() => TextStyle(
+        fontSize: 36,
+        fontWeight: FontWeight.bold,
+        fontStyle: FontStyle.italic,
+        color: Colors.white,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,120 +63,121 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: Text('Us', style: TextStyle(color: Colors.white, fontSize: 24)),
         backgroundColor: Color(0xFFE18AAA),
       ),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Time together since',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 238, 125, 162),
-                    fontSize: 20,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  'September 8, 2022',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 238, 125, 162),
-                    fontSize: 25,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 30),
-                Container(
-                  width: 320,
-                  height: 320,
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 238, 125, 162),
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: AssetImage('images/habibi.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 12,
-                        spreadRadius: 4,
-                        offset: Offset(4, 4),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('$years Years',
-                          style: TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white)),
-                      Text('$months Months',
-                          style: TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white)),
-                      Text('$days Days',
-                          style: TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white)),
-                      Text('$hours Hours',
-                          style: TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white)),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 40),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: AssetImage('images/us1.jpg'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Icon(Icons.favorite, color: const Color(0xFFE18AAA)),
-                    SizedBox(width: 10),
-                    Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: AssetImage('images/us2.jpg'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.center,
+            colors: [
+              Color(0xFFE18AAA),
+              Color(0xFFF5F5F5),
+            ],
           ),
-        ],
+        ),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Time together since',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    'September 8, 2022',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 30),
+                  Container(
+                    width: 320,
+                    height: 320,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 12,
+                          spreadRadius: 4,
+                          offset: Offset(4, 4),
+                        ),
+                      ],
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        ClipOval(
+                          child: ImageFiltered(
+                            imageFilter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                            child: Image.asset(
+                              'images/habibi.jpg',
+                              fit: BoxFit.cover,
+                              width: 320,
+                              height: 320,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('$years Years', style: _textStyle()),
+                            Text('$months Months', style: _textStyle()),
+                            Text('$days Days', style: _textStyle()),
+                            Text('$hours Hours', style: _textStyle()),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage('images/us1.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Icon(Icons.favorite, color: Color(0xFFE18AAA), size: 30),
+                      SizedBox(width: 10),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage('images/us2.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
